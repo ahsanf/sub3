@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog</string>
+    <string name="change_language_settings" translatable="false">Change Language Settings</string>
+    <string name="movie">Film</string>
+    <string name="tvshow">Acara Tv</string>
+</resources>
