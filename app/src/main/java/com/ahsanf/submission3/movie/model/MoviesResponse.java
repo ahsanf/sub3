@@ -1,6 +1,5 @@
 package com.ahsanf.submission3.movie.model;
 
-import com.ahsanf.submission3.movie.model.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

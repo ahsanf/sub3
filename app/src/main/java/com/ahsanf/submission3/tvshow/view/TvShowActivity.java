@@ -1,16 +1,13 @@
 package com.ahsanf.submission3.tvshow.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ahsanf.submission3.R;
 import com.ahsanf.submission3.tvshow.presenter.TvShowRepository;
-import com.ahsanf.submission3.tvshow.presenter.OnGetTvShowCallback;
-import com.ahsanf.submission3.tvshow.model.TvShow;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 

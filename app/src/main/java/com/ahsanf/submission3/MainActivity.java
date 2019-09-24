@@ -1,46 +1,41 @@
 package com.ahsanf.submission3;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ahsanf.submission3.movie.model.Movie;
 import com.ahsanf.submission3.movie.view.FragmentMovie;
-import com.ahsanf.submission3.movie.presenter.MoviesRepository;
+import com.ahsanf.submission3.tvshow.model.TvShow;
 import com.ahsanf.submission3.tvshow.view.FragmentTvShow;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-
-
-    private MoviesRepository moviesRepository;
     final Fragment fragment1 = new FragmentMovie();
     final Fragment fragment2 = new FragmentTvShow();
     final FragmentManager fm = getSupportFragmentManager();
-
+    FragmentMovie mFragmentMovie;
+    public static ArrayList<Movie> dataMove= new ArrayList<>();
+    public static ArrayList<TvShow> dataTv= new ArrayList<>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.action_movie:
-                    fragment = new FragmentMovie();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_layout, fragment, fragment.getClass().getSimpleName())
-                            .commit();
+                    changeFragment(FragmentMovie.getInstance());
                     return true;
                 case R.id.action_tvshow:
-                    fragment = new FragmentTvShow();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_layout, fragment, fragment.getClass().getSimpleName())
-                            .commit();
+                    changeFragment(FragmentTvShow.getInstance());
                     return true;
             }
             return false;
@@ -53,11 +48,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fm.beginTransaction().add(R.id.container_layout, fragment2, "2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.container_layout,fragment1, "1").commit();
+        if (null==savedInstanceState){
+           changeFragment(FragmentMovie.getInstance());
+        }
 
     }
 
+    private void changeFragment(Fragment fragment){
+        FragmentManager transaction=getSupportFragmentManager();
+                transaction.beginTransaction()
+                        .replace(R.id.container_layout,fragment,null)
+                        .commit();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
