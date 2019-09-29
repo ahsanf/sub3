@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.ahsanf.submission3.movie.model.Movie;
 import com.ahsanf.submission3.movie.view.FragmentMovie;
@@ -19,12 +21,6 @@ import com.ahsanf.submission3.tvshow.view.FragmentTvShow;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    final Fragment fragment1 = new FragmentMovie();
-    final Fragment fragment2 = new FragmentTvShow();
-    final FragmentManager fm = getSupportFragmentManager();
-    FragmentMovie mFragmentMovie;
-    public static ArrayList<Movie> dataMove= new ArrayList<>();
-    public static ArrayList<TvShow> dataTv= new ArrayList<>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -50,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (null==savedInstanceState){
            changeFragment(FragmentMovie.getInstance());
+
         }
 
     }

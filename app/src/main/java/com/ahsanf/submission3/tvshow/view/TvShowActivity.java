@@ -7,39 +7,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahsanf.submission3.R;
-import com.ahsanf.submission3.tvshow.presenter.TvShowRepository;
+import com.ahsanf.submission3.tvshow.model.TvShow;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 public class TvShowActivity extends AppCompatActivity {
-    public static String TVSHOW_ID = "tvshow_id";
+    public static final String EXTRA_TVSHOW = "extra_tvshow" ;
     private static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w780";
-    public static String TVSHOW_TITLE = "tvshow_title";
-    public static String TVSHOW_OVERVIEW = "tvshow_overview";
-    public static String TVSHOW_BACKDROP= "tvshow_backdrop";
-    public static String TVSHOW_POSTER= "tvshow_poster";
-    public static String TVSHOW_RELEASE= "tvshow_release";
-
-
     private ImageView tvshowBackdrop;
     private TextView tvshowTitle;
     private TextView tvshowOverview;
     private TextView tvshowOverviewLabel;
     private TextView tvshowReleaseDate;
-
-    private TvShowRepository tvshowsRepository;
-    private int tvshowId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tv_show);
 
-        tvshowId = getIntent().getIntExtra(TVSHOW_ID, tvshowId);
-        final String title = getIntent().getExtras().getString(TVSHOW_TITLE);
-        final String overview = getIntent().getExtras().getString(TVSHOW_OVERVIEW);
-        final String backdrop = getIntent().getExtras().getString(TVSHOW_BACKDROP);
-        final String release = getIntent().getExtras().getString(TVSHOW_RELEASE);
+        TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TVSHOW);
+        tvShow.getId();
+        String title = tvShow.getTitle();
+        String overview = tvShow.getOverview();
+        String backdrop = tvShow.getBackdrop();
+        String release = tvShow.getReleaseDate();
+
         initUI();
 
         tvshowTitle.setText(title);

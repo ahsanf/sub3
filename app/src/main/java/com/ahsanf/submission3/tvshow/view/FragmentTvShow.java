@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentTvShow extends Fragment {
-    private TvShowRepository tvShowRepository;
-    private RecyclerView tvshowList;
     private TvShowsAdapter adapter;
     ProgressBar progressBar;
     private static ArrayList<TvShow> dataTvShow = new ArrayList<>();
@@ -43,8 +41,8 @@ public class FragmentTvShow extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvShowRepository = TvShowRepository.getInstance();
-        tvshowList = view.findViewById(R.id.tvshow_list);
+        TvShowRepository tvShowRepository = TvShowRepository.getInstance();
+        RecyclerView tvshowList = view.findViewById(R.id.tvshow_list);
         tvshowList.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new TvShowsAdapter(dataTvShow, callback);
         progressBar = view.findViewById(R.id.progressBar2);
@@ -75,12 +73,14 @@ public class FragmentTvShow extends Fragment {
         @Override
         public void OnClick(TvShow tvshow) {
             Intent intent = new Intent(getActivity(), TvShowActivity.class);
-            intent.putExtra(TvShowActivity.TVSHOW_ID, tvshow.getId());
-            intent.putExtra(TvShowActivity.TVSHOW_TITLE, tvshow.getTitle());
-            intent.putExtra(TvShowActivity.TVSHOW_BACKDROP, tvshow.getBackdrop());
-            intent.putExtra(TvShowActivity.TVSHOW_OVERVIEW, tvshow.getOverview());
-            intent.putExtra(TvShowActivity.TVSHOW_POSTER, tvshow.getPosterPath());
-            intent.putExtra(TvShowActivity.TVSHOW_RELEASE, tvshow.getReleaseDate());
+            TvShow tvShows = new TvShow();
+            tvShows.setId(tvshow.getId());
+            tvShows.setBackdrop(tvshow.getBackdrop());
+            tvShows.setOverview(tvshow.getOverview());
+            tvShows.setPosterPath(tvshow.getPosterPath());
+            tvShows.setReleaseDate(tvshow.getReleaseDate());
+            tvShows.setTitle(tvshow.getTitle());
+            intent.putExtra(TvShowActivity.EXTRA_TVSHOW, tvShows);
             startActivity(intent);
         }
 

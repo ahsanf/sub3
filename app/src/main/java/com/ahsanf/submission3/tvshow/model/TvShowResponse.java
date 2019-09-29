@@ -42,16 +42,6 @@ public class TvShowResponse {
         return tvshows;
     }
 
-    public void setTvShows(List<TvShow> tvshows) {
-        this.tvshows = tvshows;
-    }
 
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
 }
 

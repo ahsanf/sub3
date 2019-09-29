@@ -20,10 +20,8 @@ import com.ahsanf.submission3.movie.presenter.MoviesAdapter;
 import com.ahsanf.submission3.movie.presenter.MoviesRepository;
 import com.ahsanf.submission3.movie.presenter.OnGetMoviesCallback;
 import com.ahsanf.submission3.movie.presenter.OnMoviesClickCallback;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static android.view.View.GONE;
 
 public class FragmentMovie extends Fragment {
@@ -57,17 +55,20 @@ public class FragmentMovie extends Fragment {
         moviesList.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter= new MoviesAdapter(dataMovie,callback);
         moviesList.setAdapter(adapter);
+        if(null != savedInstanceState){
+            progressBar.setVisibility(GONE);
+        }
         if(null == savedInstanceState) {
             progressBar.setVisibility(View.VISIBLE);
             moviesRepository.getMovies(new OnGetMoviesCallback() {
                 @Override
                 public void onSuccess(List<Movie> movies) {
                         dataMovie.clear();
-                    Log.d(this.getClass().getSimpleName(),"here "+movies.size() );
                         dataMovie.addAll(movies);
                         adapter.notifyDataSetChanged();
-                        progressBar.setVisibility(GONE);
+                        progressBar.setVisibility(View.GONE);
                 }
+
                 @Override
                 public void onError() {
                     Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
@@ -78,16 +79,19 @@ public class FragmentMovie extends Fragment {
         }
     }
 
+
     OnMoviesClickCallback callback = new OnMoviesClickCallback() {
         @Override
         public void onClick(Movie movie) {
             Intent intent = new Intent(getActivity(), MovieActivity.class);
-            intent.putExtra(MovieActivity.MOVIE_ID, movie.getId());
-            intent.putExtra(MovieActivity.MOVIE_TITLE, movie.getTitle());
-            intent.putExtra(MovieActivity.MOVIE_BACKDROP, movie.getBackdrop());
-            intent.putExtra(MovieActivity.MOVIE_OVERVIEW, movie.getOverview());
-            intent.putExtra(MovieActivity.MOVIE_POSTER, movie.getPosterPath());
-            intent.putExtra(MovieActivity.MOVIE_RELEASE, movie.getReleaseDate());
+            Movie movies = new Movie();
+            movies.setId(movies.getId());
+            movies.setBackdrop(movie.getBackdrop());
+            movies.setOverview(movie.getOverview());
+            movies.setPosterPath(movie.getPosterPath());
+            movies.setTitle(movie.getTitle());
+            movies.setReleaseDate(movie.getReleaseDate());
+            intent.putExtra(MovieActivity.EXTRA_MOVIE,movies );
             startActivity(intent);
 
         }

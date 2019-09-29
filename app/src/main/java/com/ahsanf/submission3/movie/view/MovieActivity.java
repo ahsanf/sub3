@@ -7,34 +7,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ahsanf.submission3.R;
+import com.ahsanf.submission3.movie.model.Movie;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 public class MovieActivity extends AppCompatActivity {
-    public static String MOVIE_ID = "movie_id";
+    public static final String EXTRA_MOVIE = "extra_movie" ;
     private static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w780";
-    public static String MOVIE_TITLE = "movie_title";
-    public static String MOVIE_OVERVIEW = "movie_overview";
-    public static String MOVIE_BACKDROP= "movie_backdrop";
-    public static String MOVIE_POSTER= "movie_poster";
-    public static String MOVIE_RELEASE= "movie_release";
     private ImageView movieBackdrop;
     private TextView movieTitle;
     private TextView movieOverview;
     private TextView movieOverviewLabel;
     private TextView movieReleaseDate;
-    private int movieId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
 
-        movieId = getIntent().getIntExtra(MOVIE_ID, movieId);
-        final String title = getIntent().getExtras().getString(MOVIE_TITLE);
-        final String overview = getIntent().getExtras().getString(MOVIE_OVERVIEW);
-        final String backdrop = getIntent().getExtras().getString(MOVIE_BACKDROP);
-        final String release = getIntent().getExtras().getString(MOVIE_RELEASE);
+        Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        movie.getId();
+        String title = movie.getTitle();
+        String overview = movie.getOverview();
+        String backdrop = movie.getBackdrop();
+        String release = movie.getReleaseDate();
         initUI();
 
         movieTitle.setText(title);
